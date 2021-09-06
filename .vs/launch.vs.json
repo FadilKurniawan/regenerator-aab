@@ -1,0 +1,12 @@
+{
+  "version": "0.2.1",
+  "defaults": {},
+  "configurations": [
+    {
+      "type": "default",
+      "project": "windows\\CMakeLists.txt",
+      "projectTarget": "regenerator_aab.exe (runner\\regenerator_aab.exe)",
+      "name": "regenerator_aab.exe (runner\\regenerator_aab.exe)"
+    }
+  ]
+}
