@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:regenerator_aab/page/dashboard/dashboard_controller.dart';
 import 'package:get/get.dart';
@@ -21,8 +22,12 @@ class BuildForms extends GetView<DashboardController> {
         return controller.isLoading
             ? Container(
                 child: Center(
-                  child: CircularProgressIndicator(
-                    color: Resources.color.colorPrimary,
+                  child: Column(
+                    children: [
+                      CircularProgressIndicator(
+                        color: Resources.color.colorPrimary,
+                      ),
+                    ],
                   ),
                 ),
               )
@@ -56,7 +61,7 @@ class BuildForms extends GetView<DashboardController> {
                                       controller: controller.projPathController,
                                       iconPrefix: Icons.drive_file_move,
                                       labelText: '../..',
-                                      validator: Validator().notEmpty,
+                                      validator: null, // Validator().notEmpty,
                                       keyboardType: TextInputType.emailAddress,
                                       maxLines: 1,
                                       onChanged: (value) {
@@ -202,9 +207,61 @@ class BuildForms extends GetView<DashboardController> {
                           ),
                           FormVerticalSpace(height: 5.w),
                           controller.finalCMD.value.isNotEmpty
-                              ? SelectableText(
-                                  controller.finalCMD.value,
-                                  style: TextStyle(fontSize: 6.sp),
+                              ? Wrap(
+                                  alignment: WrapAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 50.w,
+                                      child: InputLabel(
+                                        title:
+                                            'Copy Paste and execute this on the Open Terminal:',
+                                        titleStyle: TextStyle(fontSize: 12),
+                                        child: Container(
+                                          decoration: ShapeDecoration(
+                                            shape: RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                  width: 1.0,
+                                                  style: BorderStyle.solid,
+                                                  color: Colors.grey.shade300),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0)),
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: SelectableText(
+                                              controller.finalCMD.value,
+                                              style: TextStyle(fontSize: 6.sp),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 24.0),
+                                      child: IconButton(
+                                        onPressed: () {
+                                          Clipboard.setData(ClipboardData(
+                                                  text: controller
+                                                      .finalCMD.value))
+                                              .then((value) {
+                                            Get.snackbar('Copied',
+                                                'Data Copied on clipboard',
+                                                icon: Icon(
+                                                  Icons.check_rounded,
+                                                  color: Colors.white,
+                                                ),
+                                                margin: EdgeInsets.all(30),
+                                                duration: Duration(seconds: 3),
+                                                backgroundColor: Colors.grey,
+                                                colorText: Colors.white);
+                                          });
+                                        },
+                                        icon: Icon(Icons.copy_all),
+                                        tooltip: 'Copy',
+                                      ),
+                                    )
+                                  ],
                                 )
                               : Container(),
                           FormVerticalSpace(height: 5.w),
