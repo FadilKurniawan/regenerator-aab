@@ -137,6 +137,10 @@ class AppTheme {
         borderRadius: BorderRadius.circular(8),
         borderSide: BorderSide(color: Resources.color.colorPrimary, width: 1),
       ),
+      disabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: BorderSide(color: Colors.grey.shade200, width: 1),
+      ),
       labelStyle: TextStyle(
         color: darkMode ? Resources.color.white : Resources.color.black,
       ),

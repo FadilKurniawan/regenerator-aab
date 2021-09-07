@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -50,6 +48,7 @@ class FormInputFieldWithIcon extends StatelessWidget {
             child: FormBuilderTextField(
               decoration: InputDecoration(
                 filled: true,
+                fillColor: enabled ? Colors.white : Colors.grey.shade200,
                 prefixIcon: iconPrefix != null ? Icon(iconPrefix) : null,
                 hintText: labelText,
                 suffixIcon: iconSuffix != null ? Icon(iconSuffix) : null,
@@ -106,6 +105,8 @@ class FormInputFieldWithIcon extends StatelessWidget {
     if (result != null) {
       // File file = File(result.files.single.path);
       controller.text = result.files.single.path;
+      // ignore: unnecessary_statements
+      onChanged != null ? onChanged!(controller.text) : () {};
     } else {
       // User canceled the picker
     }

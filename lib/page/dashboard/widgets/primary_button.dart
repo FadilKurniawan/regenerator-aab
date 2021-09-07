@@ -13,6 +13,7 @@ class PrimaryButton extends StatelessWidget {
   final double marginHorizontal;
   final String? title;
   final bool reverse;
+  final BoxShadow? shadow;
 
   const PrimaryButton({
     Key? key,
@@ -25,6 +26,7 @@ class PrimaryButton extends StatelessWidget {
     this.borderRadius,
     this.enabled = true,
     this.reverse = false,
+    this.shadow,
     this.marginHorizontal = 0,
   }) : super(key: key);
 
@@ -53,11 +55,12 @@ class PrimaryButton extends StatelessWidget {
             ),
         boxShadow: [
           enabled
-              ? BoxShadow(
-                  color: Colors.grey,
-                  offset: Offset(0.0, 1.5),
-                  blurRadius: 1.5,
-                )
+              ? shadow ??
+                  BoxShadow(
+                    color: Colors.grey,
+                    offset: Offset(0.0, 1.5),
+                    blurRadius: 1.5,
+                  )
               : BoxShadow(color: Colors.transparent),
         ],
         borderRadius: BorderRadius.circular(borderRadius ?? 12),
